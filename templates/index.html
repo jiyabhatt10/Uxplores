@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}UXPLORES — Building UX-Driven Digital Products{% endblock %}
+{% block meta_desc %}Delivering custom software, web applications, and mobile experiences engineered for growth, efficiency, and impact.{% endblock %}
+
+{% block content %}
+<div class="w-full">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="floating-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+    </div>
+    <div class="hero-bg-img">
+      <img src="{{ url_for('static', filename='images/hero-bg.png') }}" alt="Hero background">
+      <div class="hero-bg-fade"></div>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>
+          <span class="text-gradient-animated">Building UX-Driven Digital Products</span>
+        </h1>
+
+        <p class="lead">Delivering custom software, web applications, and mobile experiences engineered for growth, efficiency, and impact.</p>
+
+        <div class="hero-actions">
+          <a href="{{ url_for('contact') }}" class="btn btn-white btn-lg">Start a Project</a>
+          <a href="{{ url_for('portfolio') }}" class="btn btn-outline btn-lg">View Our Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      {% for brand in ["TECHCORP","INNOVATE","NEXUS","QUANTUM","APEX","ZENITH","FUSION","VERTEX"] * 2 %}
+        <span class="marquee-item">{{ brand }}<span class="dot">✦</span></span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal-sm">
+          <div class="stat-value"><span data-counter="{{ settings.stat_projects }}">0</span></div>
+          <div class="stat-label">Founded</div>
+        </div>
+        <div class="stat-item reveal-sm d-1">
+          <div class="stat-value"><span data-counter="{{ settings.stat_clients }}">0</span></div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-item reveal-sm d-2">
+          <div class="stat-value"><span data-counter="{{ settings.stat_awards }}">0</span></div>
+          <div class="stat-label">Industries Served</div>
+        </div>
+        <div class="stat-item reveal-sm d-3">
+          <div class="stat-value"><span data-counter="{{ settings.stat_satisfaction }}">0</span></div>
+          <div class="stat-label">Custom Build Solutions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 48rem; margin: 0 auto 5rem;">
+        <span class="eyebrow">What We Do</span>
+        <h3 style="font-size: 2.5rem; font-weight: 700;">Comprehensive digital solutions tailored to your unique needs</h3>
+      </div>
+
+      <div class="grid grid-3">
+        {% for service in services %}
+        <div class="reveal d-{{ (loop.index0 % 4) + 1 }}">
+          <div class="service-card card-glass">
+            <div class="service-icon">{{ ic.icon(service.icon, 28) }}</div>
+            <h4>{{ service.title }}</h4>
+            <p>{{ service.description }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section bg-card border-y">
+    <div class="container">
+      <div class="grid grid-2" style="align-items: center; gap: 4rem;">
+        <div class="reveal">
+          <span class="eyebrow">Our Process</span>
+          <h3 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2;">How we bring your ideas to life</h3>
+          <p class="muted" style="font-size: 1.125rem; margin-bottom: 2rem;">A streamlined, transparent approach that ensures we deliver exceptional results on time and beyond expectations.</p>
+          <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-md" style="width: fit-content;">
+            Book a Discovery Call
+            <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
+          </a>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          {% for step in [
+            ("Discovery and Analysis", "Understanding your business objectives, users, and technical requirements."),
+            ("UX Strategy & Planning", "Defining product structure, features, workflows, and development roadmap."),
+            ("Design & Validation", "Creating intuitive interfaces and validating experiences before development."),
+            ("Development & Launch", "Building, testing, deploying, and scaling high-performance digital products."),
+          ] %}
+          <div class="reveal d-{{ loop.index }}">
+            <div class="process-step">
+              <div class="process-num">{{ loop.index }}</div>
+              <div>
+                <h4>{{ step[0] }}</h4>
+                <p>{{ step[1] }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="section">
+    <div class="container">
+      <div class="featured-header-row">
+        <div class="reveal">
+          <h2 style="font-size:2.5rem; font-weight:700; margin-bottom:1rem;">Featured <span class="text-gradient-primary">Projects</span></h2>
+          <p class="muted" style="font-size:1.125rem;">Our most impactful work, delivering measurable results.</p>
+        </div>
+        <div class="reveal d-2">
+          <a href="{{ url_for('portfolio') }}" class="btn btn-outline-thin btn-md">
+            View All Projects
+            <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 16) }}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        {% for p in projects %}
+        <div class="reveal d-{{ loop.index }}">
+          <a href="{{ url_for('portfolio') }}" class="project-card">
+            <div class="overlay-dark"></div>
+            <div class="overlay-color" style="background: linear-gradient(135deg, {{ ['#1FA2FF','#0B5ED7','#2563eb'][loop.index0 % 3] }}cc, transparent);"></div>
+            <img src="{{ p.image }}" alt="{{ p.title }}">
+            <div class="project-card-content">
+              <span class="project-cat-badge">{{ p.tags.split(',')[0] }}</span>
+              <h3>{{ p.title }}</h3>
+              <div class="project-stat">
+                <span class="dot"></span>
+                <span>{{ p.stat1_value }} {{ p.stat1_label }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="quote-section">
+    <div class="quote-glow"></div>
+    <div class="quote-inner reveal">
+      <span class="eyebrow" style="text-align:center;">We Build Products That Drive Business Growth</span>
+      <h2 style="margin-top: 0.5rem;">From custom software and SaaS platforms to mobile apps and enterprise solutions, we combine strategy, UX, and engineering to create digital products that deliver measurable results.</h2>
+      <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-lg" style="margin: 0 auto;">
+        Start a Project
+        <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section class="section" id="newsletter">
+    <div class="container">
+      <div class="reveal" style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <h3 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Stay Updated</h3>
+        <p class="muted" style="font-size: 1.125rem; margin-bottom: 2rem;">Get the latest blog posts, insights, and product updates delivered to your inbox.</p>
+        
+        <form id="newsletter-form" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="your@email.com" 
+            required
+            style="flex: 1; min-width: 250px; padding: 12px 16px; border: 1px solid var(--bs-border-color); border-radius: 8px; background: var(--bs-body-bg); color: var(--bs-body-color); font-size: 1rem;"
+          >
+          <button 
+            type="submit" 
+            class="btn btn-gradient"
+            style="min-width: 140px;"
+          >
+            Subscribe
+          </button>
+        </form>
+        
+        <p style="font-size: 0.875rem; color: var(--bs-secondary-color); margin-top: 1rem;">
+          ✓ No spam • ✓ Unsubscribe anytime
+        </p>
+        
+        <div id="newsletter-message" style="margin-top: 1rem; display: none; padding: 12px; border-radius: 8px; font-size: 0.95rem;"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+<script>
+  document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value.trim();
+    const messageEl = document.getElementById('newsletter-message');
+    
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      
+      const data = await response.json();
+      messageEl.style.display = 'block';
+      
+      if (data.ok) {
+        messageEl.textContent = '✓ Check your email to confirm your subscription!';
+        messageEl.style.background = 'rgba(34, 197, 94, 0.1)';
+        messageEl.style.color = '#22c55e';
+        e.target.reset();
+      } else {
+        messageEl.textContent = `Error: ${data.error}`;
+        messageEl.style.background = 'rgba(239, 68, 68, 0.1)';
+        messageEl.style.color = '#ef4444';
+      }
+    } catch (err) {
+      messageEl.style.display = 'block';
+      messageEl.textContent = 'Error sending subscription. Please try again.';
+      messageEl.style.background = 'rgba(239, 68, 68, 0.1)';
+      messageEl.style.color = '#ef4444';
+    }
+  });
+</script>

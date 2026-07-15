@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}Blog — UXPLORES Design Studio{% endblock %}
+
+{% block content %}
+{% set featured_post = posts | selectattr('featured') | first %}
+{% set other_posts = posts | rejectattr('featured') | list %}
+
+<div class="w-full">
+
+  <section class="page-hero">
+    <div class="floating-orbs"><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
+    <div class="container reveal">
+      <span class="eyebrow" style="text-align:center;">Our Blog</span>
+      <h1><span class="text-gradient">Insights &amp; </span><span class="text-gradient-primary">Ideas</span></h1>
+      <p class="lead">Thoughts on design, development, and everything in between.</p>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+
+      <div class="filter-tabs reveal">
+        {% for cat in ['all', 'design', 'development', 'strategy', 'trends'] %}
+        <button class="filter-tab {{ 'active' if cat == 'all' }}" data-blog-filter-tab="{{ cat }}">{{ cat }}</button>
+        {% endfor %}
+      </div>
+
+      {% if featured_post %}
+      <div class="reveal" data-blog-featured style="margin-bottom: 4rem;">
+        <div class="blog-featured" data-open-blog>
+          <div class="blog-featured-img">
+            <img src="{{ featured_post.image }}" alt="{{ featured_post.title }}">
+            <div class="fade"></div>
+            <span class="featured-badge">Featured</span>
+          </div>
+          <div class="blog-featured-body">
+            <div class="blog-meta-row">
+              <span>{{ ic.icon('calendar', 16) }}{{ featured_post.date_str }}</span>
+              <span>{{ ic.icon('clock', 16) }}{{ featured_post.read_time }}</span>
+            </div>
+            <h2>{{ featured_post.title }}</h2>
+            <p>{{ featured_post.excerpt }}</p>
+            <div class="blog-author-row">
+              <div class="author-avatar">{{ featured_post.author[0] }}</div>
+              <div>
+                <div class="author-name">{{ featured_post.author }}</div>
+                <div class="author-date">Author</div>
+              </div>
+            </div>
+            <a class="read-article-link" href="{{ url_for('blog_post', post_id=featured_post.id) }}">Read Full Article {{ ic.icon('arrow-right', 16) }}</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="grid grid-3">
+        {% for post in other_posts %}
+        <div class="reveal d-{{ (loop.index0 % 3) + 1 }}" data-blog-category="{{ post.category }}">
+          <div class="blog-card" data-open-blog>
+            <div class="blog-card-img">
+              <img src="{{ post.image }}" alt="{{ post.title }}">
+              <div class="fade"></div>
+              <span class="blog-cat-badge">{{ post.category }}</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span>{{ ic.icon('calendar', 12) }}{{ post.date_str }}</span>
+                <span>{{ ic.icon('clock', 12) }}{{ post.read_time }}</span>
+              </div>
+              <h3>{{ post.title }}</h3>
+              <p>{{ post.excerpt }}</p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <div class="author-avatar">{{ post.author[0] }}</div>
+                  <span>{{ post.author }}</span>
+                </div>
+                <a class="blog-card-read" href="{{ url_for('blog_post', post_id=post.id) }}">Read {{ ic.icon('arrow-right', 14) }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section bg-card border-y">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 36rem; margin: 0 auto;">
+        <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Never miss an <span class="text-gradient-primary">update</span></h3>
+        <p class="muted" style="margin-bottom: 2rem;">Subscribe to our newsletter for the latest insights on design and development.</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="btn-gradient btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

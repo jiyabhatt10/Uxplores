@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Newsletter Verified - UXPLORES{% endblock %}
+
+{% block content %}
+<div style="min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+    <div style="max-width: 500px; text-align: center; background: var(--bs-body-bg); padding: 60px 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(31, 162, 255, 0.1);">
+        <div style="font-size: 60px; margin-bottom: 20px;">✅</div>
+        
+        <h1 style="color: var(--bs-body-color); font-size: 28px; font-weight: 700; margin-bottom: 15px;">
+            Email Verified!
+        </h1>
+        
+        <p style="color: var(--bs-body-color); font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
+            Thank you for confirming your email. You're all set to receive the latest blog posts, insights, and updates from UXPLORES.
+        </p>
+        
+        <p style="color: #999; font-size: 13px; margin-bottom: 30px;">
+            You'll receive an email whenever we publish new content.
+        </p>
+        
+        <a href="/" style="display: inline-block; background: linear-gradient(135deg, #1fa2ff, #e100ff); color: white; padding: 12px 40px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+            Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

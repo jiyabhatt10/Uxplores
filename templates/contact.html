@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}Contact — UXPLORES{% endblock %}
+{% block meta_desc %}Have a project in mind? Get in touch with UXPLORES and let's start the conversation.{% endblock %}
+
+{% block content %}
+<div class="w-full">
+
+  <section class="page-hero">
+    <div class="floating-orbs"><div class="orb orb-1"></div><div class="orb orb-3"></div></div>
+    <div class="container reveal">
+      <span class="eyebrow" style="text-align:center;">Get In Touch</span>
+      <h1><span class="text-gradient">Let's Build </span><span class="text-gradient-primary">Together</span></h1>
+      <p class="lead">Have a project in mind? We'd love to hear about it. Reach out and let's start the conversation.</p>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="reveal-left contact-info">
+          <h2>Contact Information</h2>
+          <p>Reach out through any of these channels, or fill out the form and we'll get back to you within 24 hours.</p>
+
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-item-icon">{{ ic.icon('mail', 24) }}</div>
+              <div>
+                <div class="contact-item-label">Email Us</div>
+                <div class="contact-item-value">{{ settings.contact_email }}</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">{{ ic.icon('phone', 24) }}</div>
+              <div>
+                <div class="contact-item-label">Call Us</div>
+                <div class="contact-item-value">{{ settings.contact_phone }}</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">{{ ic.icon('map-pin', 24) }}</div>
+              <div>
+                <div class="contact-item-label">Location</div>
+                <div class="contact-item-value">{{ settings.contact_address }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-right">
+          <div class="contact-form-panel">
+            <div class="glow-1"></div>
+            <div class="glow-2"></div>
+            <h3>Send Us a Message</h3>
+
+            <div class="form-success" id="form-success">
+              {{ ic.icon('check-circle-2', 20) }}
+              <span>Thanks for reaching out! We'll get back to you within 24 hours.</span>
+            </div>
+            <div class="form-error" id="form-error"></div>
+
+            <form id="contact-form">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="f-name">Full Name *</label>
+                  <input type="text" id="f-name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="field">
+                  <label for="f-email">Email Address *</label>
+                  <input type="email" id="f-email" name="email" placeholder="Enter your email address" required>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="f-company">Company Name</label>
+                  <input type="text" id="f-company" name="company" placeholder="Enter your company name">
+                </div>
+                <div class="field">
+                  <label for="f-budget">Project Budget</label>
+                  <div class="select-wrap">
+                    <select id="f-budget" name="budget">
+                      <option value="">Select budget range</option>
+                      <option value="Under $5,000">Under $5,000</option>
+                      <option value="$5,000 - $15,000">$5,000 - $15,000</option>
+                      <option value="$15,000 - $50,000">$15,000 - $50,000</option>
+                      <option value="$50,000+">$50,000+</option>
+                    </select>
+                    {{ ic.icon('chevron-down', 16) }}
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-type">Project Type</label>
+                <input type="text" id="f-type" name="project_type" placeholder="e.g. Web App, Mobile App, SaaS Platform">
+              </div>
+              <div class="field">
+                <label for="f-message">Project Details *</label>
+                <textarea id="f-message" name="message" rows="5" placeholder="Tell us a bit about your project and what you're looking to build..." required></textarea>
+              </div>
+              <button type="submit" class="submit-btn btn-gradient">
+                <span class="submit-label">Send Message</span>
+                {{ ic.icon('send', 20) }}
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-card border-y">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 42rem; margin: 0 auto 4rem;">
+        <span class="eyebrow">FAQ</span>
+        <h3 style="font-size: 2.5rem; font-weight: 700;">Frequently Asked Questions</h3>
+      </div>
+
+      <div class="faq-grid">
+        {% for q, a in [
+          ("What services does UXplores offer?", "We provide UI/UX design, product design, web development, mobile app development, SaaS development, custom software solutions, and enterprise application development."),
+          ("Do you work with startups and enterprises?", "Yes. We partner with startups, SMEs, and enterprise organizations to design and develop scalable digital products tailored to their business goals."),
+          ("What is your typical project timeline?", "Project timelines vary based on scope and complexity. A typical UI/UX project may take 2–6 weeks, while custom software, web applications, or mobile apps can range from 6–16 weeks or more."),
+          ("What is your development process?", "Our process includes Discovery & Planning, UX Strategy, Design & Validation, Development, Testing, Deployment, and Ongoing Support to ensure successful product delivery."),
+          ("Do you provide post-launch support and maintenance?", "Yes. We offer ongoing maintenance, performance optimization, bug fixes, feature enhancements, and technical support after launch."),
+          ("How do I get started with a project?", "Simply contact our team with your requirements. We'll schedule a discovery call, understand your goals, define the project scope, and provide a tailored proposal."),
+        ] %}
+        <div class="reveal faq-item">
+          <div class="faq-head">
+            <h4>{{ q }}</h4>
+            <span class="faq-chevron">{{ ic.icon('chevron-down', 20) }}</span>
+          </div>
+          <div class="faq-answer"><p>{{ a }}</p></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

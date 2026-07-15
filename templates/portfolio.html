@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}Featured Work — UXPLORES{% endblock %}
+{% block meta_desc %}Explore our curated collection of work — digital experiences crafted for ambitious brands and visionary founders.{% endblock %}
+
+{% block content %}
+<div class="w-full">
+
+  <section class="page-hero">
+    <div class="floating-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+    <div class="container reveal">
+      <span class="eyebrow" style="text-align:center;">Our Portfolio</span>
+      <h1><span class="text-gradient">Featured </span><span class="text-gradient-primary">Work</span></h1>
+      <p class="lead">Explore our curated collection of work — digital experiences crafted for ambitious brands and visionary founders.</p>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal-sm">
+          <div class="stat-value"><span data-counter="{{ settings.stat_projects }}">0</span></div>
+          <div class="stat-label">Founded</div>
+        </div>
+        <div class="stat-item reveal-sm d-1">
+          <div class="stat-value"><span data-counter="{{ settings.stat_clients }}">0</span></div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-item reveal-sm d-2">
+          <div class="stat-value"><span data-counter="{{ settings.stat_awards }}">0</span></div>
+          <div class="stat-label">Industries Served</div>
+        </div>
+        <div class="stat-item reveal-sm d-3">
+          <div class="stat-value"><span data-counter="{{ settings.stat_satisfaction }}">0</span></div>
+          <div class="stat-label">Custom Build Solutions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section-sm">
+    <div class="container">
+
+      <div class="filter-tabs reveal">
+        {% for cat in ['all', 'web', 'mobile', 'branding', 'saas'] %}
+        <button class="filter-tab {{ 'active' if cat == 'all' }}" data-filter-tab="{{ cat }}">
+          {{ 'All Work' if cat == 'all' else cat }}
+        </button>
+        {% endfor %}
+      </div>
+
+      <div class="grid grid-3">
+        {% for p in projects %}
+        <div class="reveal d-{{ (loop.index0 % 3) + 1 }}" data-project-category="{{ p.category }}">
+          <div class="portfolio-card" data-open-project data-project='{{ p.to_dict() | tojson | safe }}'>
+            <div class="portfolio-card-img">
+              <img src="{{ p.image }}" alt="{{ p.title }}">
+              <div class="fade"></div>
+              <div class="portfolio-tags">
+                {% for tag in p.tags.split(',')[:2] %}
+                <span class="portfolio-tag">{{ tag.strip() }}</span>
+                {% endfor %}
+              </div>
+              <div class="portfolio-stats-hover">
+                <span class="portfolio-stat-pill">{{ p.stat1_value }} {{ p.stat1_label }}</span>
+                <span class="portfolio-stat-pill">{{ p.stat2_value }} {{ p.stat2_label }}</span>
+              </div>
+            </div>
+            <div class="portfolio-card-body">
+              <div class="portfolio-card-cat">{{ p.category }}</div>
+              <h3>{{ p.title }}</h3>
+              <p>{{ p.description }}</p>
+              <div class="portfolio-view-link">
+                View Case Study
+                {{ ic.icon('external-link', 16) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow" style="background: rgba(31,162,255,0.15);"></div>
+    <div class="reveal cta-panel">
+      <h2>Got a project <span class="text-gradient-primary">like this?</span></h2>
+      <p>Let's discuss how we can create something equally impactful for your brand.</p>
+      <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-lg">
+        Start Your Project
+        <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- Case study modal -->
+<div class="modal-backdrop" id="case-study-modal">
+  <div class="modal-scrim"></div>
+  <div class="modal-panel">
+    <button class="modal-close" aria-label="Close">{{ ic.icon('x', 24) }}</button>
+    <img class="modal-img" data-modal-img src="" alt="">
+    <div class="modal-tags" data-modal-tags></div>
+    <h2 data-modal-title></h2>
+    <p class="modal-desc" data-modal-desc></p>
+    <div class="modal-stats" data-modal-stats></div>
+    <div class="modal-section">
+      <div class="modal-block">
+        <h4>The Challenge</h4>
+        <p data-modal-challenge></p>
+      </div>
+      <div class="modal-block">
+        <h4>The Solution</h4>
+        <p data-modal-solution></p>
+      </div>
+      <div class="modal-block">
+        <h4>The Results</h4>
+        <p data-modal-results></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

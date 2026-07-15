@@ -1,0 +1,226 @@
+{% import "_icons.html" as ic %}
+<!DOCTYPE html>
+<html lang="en" id="admin-html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — UXPLORES</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-body">
+
+  <button class="admin-mobile-toggle" id="sidebar-toggle" aria-label="Toggle menu">{{ ic.icon('menu', 20) }}</button>
+
+  <div class="admin-shell">
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-header">
+        <div class="logo admin-h">UXPLORES<span class="dot">.</span></div>
+        <div class="tag">Admin Panel</div>
+      </div>
+
+      <nav class="admin-nav">
+        <button class="admin-nav-item active" data-tab="overview">{{ ic.icon('layout-dashboard') }}<span>Overview</span></button>
+        <button class="admin-nav-item" data-tab="projects">{{ ic.icon('briefcase') }}<span>Projects</span><span class="badge">{{ counts.projects }}</span></button>
+        <button class="admin-nav-item" data-tab="services">{{ ic.icon('layout-template') }}<span>Services</span><span class="badge">{{ counts.services }}</span></button>
+        <button class="admin-nav-item" data-tab="blog">{{ ic.icon('file-text') }}<span>Blog Posts</span><span class="badge">{{ counts.blog }}</span></button>
+        <button class="admin-nav-item" data-tab="team">{{ ic.icon('users') }}<span>Team</span><span class="badge">{{ counts.team }}</span></button>
+        <button class="admin-nav-item" data-tab="contacts">{{ ic.icon('inbox') }}<span>Messages</span>{% if counts.unread %}<span class="badge">{{ counts.unread }}</span>{% endif %}</button>
+        <button class="admin-nav-item" data-tab="newsletter">{{ ic.icon('mail') }}<span>Newsletter</span></button>
+        <button class="admin-nav-item" data-tab="settings">{{ ic.icon('settings') }}<span>Settings</span></button>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <button class="admin-logout-btn" id="theme-toggle-btn" onclick="toggleAdminTheme()">{{ ic.icon('sun') }}<span id="theme-toggle-label">Light Mode</span></button>
+        <a href="{{ url_for('home') }}" target="_blank" rel="noopener" class="admin-logout-btn">{{ ic.icon('external-link') }}<span>View Site</span></a>
+        <a href="{{ url_for('admin_logout') }}" class="admin-logout-btn">{{ ic.icon('log-out') }}<span>Log Out</span></a>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <h1 class="admin-h" id="page-title">Overview</h1>
+          <p id="page-sub">Welcome back — here's what's happening with your site.</p>
+        </div>
+        <button class="abtn abtn-primary" id="add-btn" style="display:none;">{{ ic.icon('plus', 16) }}<span id="add-btn-label">Add New</span></button>
+      </div>
+
+      <!-- Overview -->
+      <div class="tab-panel active" data-panel="overview">
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card accent-primary"><div class="val">{{ counts.projects }}</div><div class="lbl">Projects</div></div>
+          <div class="admin-stat-card accent-accent"><div class="val">{{ counts.services }}</div><div class="lbl">Services</div></div>
+          <div class="admin-stat-card accent-primary"><div class="val">{{ counts.blog }}</div><div class="lbl">Blog Posts</div></div>
+          <div class="admin-stat-card accent-accent"><div class="val">{{ counts.team }}</div><div class="lbl">Team Members</div></div>
+          <div class="admin-stat-card accent-primary"><div class="val">{{ counts.contacts }}</div><div class="lbl">Total Messages</div></div>
+          <div class="admin-stat-card accent-accent"><div class="val">{{ counts.unread }}</div><div class="lbl">Unread Messages</div></div>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-header"><h3 class="admin-h">Quick Guide</h3></div>
+          <div class="admin-panel-body">
+            <p style="color:var(--muted); line-height:1.8; font-size:0.9rem;">
+              Use the sidebar to manage everything shown on the public site. <strong>Projects</strong> power the Portfolio page,
+              <strong>Services</strong> power the Home &amp; Services pages, <strong>Blog Posts</strong> power the Blog page, and
+              <strong>Team</strong> powers the About page. Changes save instantly and appear live on the site — no redeploy needed.
+              Check <strong>Messages</strong> for contact form submissions, and use <strong>Settings</strong> to update site-wide stats,
+              contact details, and your admin password.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="tab-panel" data-panel="projects">
+        <div class="admin-panel"><div class="admin-panel-body" id="projects-list"><div class="empty-state">Loading…</div></div></div>
+      </div>
+
+      <!-- Services -->
+      <div class="tab-panel" data-panel="services">
+        <div class="admin-panel"><div class="admin-panel-body" id="services-list"><div class="empty-state">Loading…</div></div></div>
+      </div>
+
+      <!-- Blog -->
+      <div class="tab-panel" data-panel="blog">
+        <div class="admin-panel"><div class="admin-panel-body" id="blog-list"><div class="empty-state">Loading…</div></div></div>
+      </div>
+
+      <!-- Team -->
+      <div class="tab-panel" data-panel="team">
+        <div class="admin-panel"><div class="admin-panel-body" id="team-list"><div class="empty-state">Loading…</div></div></div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="tab-panel" data-panel="contacts">
+        <div class="admin-panel"><div class="admin-panel-body" id="contacts-list"><div class="empty-state">Loading…</div></div></div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="tab-panel" data-panel="newsletter">
+        <div class="admin-panel">
+          <div class="admin-panel-header"><h3 class="admin-h">Newsletter Configuration</h3></div>
+          <div class="admin-panel-body">
+            <div class="afield"><label>Email Provider</label>
+              <select id="newsletter-provider">
+                <option value="Resend">Resend</option>
+                <option value="SMTP">SMTP</option>
+                <option value="SendGrid">SendGrid</option>
+                <option value="Amazon SES">Amazon SES</option>
+              </select>
+            </div>
+
+            <div id="newsletter-smtp-fields" style="display:none;">
+              <div class="settings-grid">
+                <div class="afield"><label>SMTP Host</label><input id="newsletter-smtp-host"></div>
+                <div class="afield"><label>SMTP Port</label><input id="newsletter-smtp-port" type="number"></div>
+                <div class="afield"><label>SMTP Username</label><input id="newsletter-smtp-username"></div>
+                <div class="afield"><label>SMTP Password</label><input type="password" id="newsletter-smtp-password" placeholder="Enter password or leave to keep current"></div>
+                <div class="afield"><label>Encryption</label>
+                  <select id="newsletter-smtp-encryption">
+                    <option value="TLS">TLS</option>
+                    <option value="SSL">SSL</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div id="newsletter-resend-fields" style="display:none;">
+              <div class="afield"><label>Resend API Key</label><input type="password" id="newsletter-resend-api-key" placeholder="Enter API key or leave to keep current"></div>
+            </div>
+
+            <div id="newsletter-sendgrid-fields" style="display:none;">
+              <div class="afield"><label>SendGrid API Key</label><input type="password" id="newsletter-sendgrid-api-key" placeholder="Enter API key or leave to keep current"></div>
+            </div>
+
+            <div id="newsletter-ses-fields" style="display:none;">
+              <div class="settings-grid">
+                <div class="afield"><label>Access Key</label><input type="password" id="newsletter-ses-access-key" placeholder="Enter access key or leave to keep current"></div>
+                <div class="afield"><label>Secret Key</label><input type="password" id="newsletter-ses-secret-key" placeholder="Enter secret key or leave to keep current"></div>
+                <div class="afield"><label>AWS Region</label><input id="newsletter-ses-region"></div>
+              </div>
+            </div>
+
+            <div class="settings-grid">
+              <div class="afield"><label>From Email</label><input id="newsletter-from-email"></div>
+              <div class="afield"><label>Website URL</label><input id="newsletter-site-url"></div>
+            </div>
+
+            <button class="abtn abtn-primary" id="save-newsletter-config-btn" style="margin-top:0.5rem;">{{ ic.icon('check-circle-2', 16) }}Save Configuration</button>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-header"><h3 class="admin-h">Subscriber Management</h3></div>
+          <div class="admin-panel-body">
+            <div class="settings-grid" style="margin-bottom:1rem;">
+              <div class="admin-stat-card" style="padding:1rem;"><div class="val" id="newsletter-total-count">0</div><div class="lbl">Total Subscribers</div></div>
+              <div class="admin-stat-card" style="padding:1rem;"><div class="val" id="newsletter-active-count">0</div><div class="lbl">Active Subscribers</div></div>
+              <div class="admin-stat-card" style="padding:1rem;"><div class="val" id="newsletter-pending-count">0</div><div class="lbl">Pending Verification</div></div>
+              <div class="admin-stat-card" style="padding:1rem;"><div class="val" id="newsletter-unsubscribed-count">0</div><div class="lbl">Unsubscribed Users</div></div>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; margin-bottom:1rem;">
+              <input id="newsletter-search" placeholder="Search subscribers..." style="flex:1; min-width:220px;">
+              <select id="newsletter-status-filter" style="min-width:180px;"><option value="">All statuses</option><option value="active">Active</option><option value="pending">Pending</option><option value="unsubscribed">Unsubscribed</option></select>
+              <button class="abtn abtn-outline" id="newsletter-export-btn">Export CSV</button>
+            </div>
+
+            <div id="newsletter-subscriber-table" style="overflow-x:auto;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="tab-panel" data-panel="settings">
+        <div class="admin-panel">
+          <div class="admin-panel-header"><h3 class="admin-h">Site Stats</h3></div>
+          <div class="admin-panel-body">
+            <div class="settings-grid" id="settings-stats-form">
+              <div class="afield"><label>Projects Completed</label><input data-setting="stat_projects"></div>
+              <div class="afield"><label>Happy Clients</label><input data-setting="stat_clients"></div>
+              <div class="afield"><label>Awards Won</label><input data-setting="stat_awards"></div>
+              <div class="afield"><label>Client Satisfaction</label><input data-setting="stat_satisfaction"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-header"><h3 class="admin-h">Contact Info</h3></div>
+          <div class="admin-panel-body">
+            <div class="settings-grid" id="settings-contact-form">
+              <div class="afield"><label>Site Name</label><input data-setting="site_name"></div>
+              <div class="afield"><label>Contact Email</label><input data-setting="contact_email"></div>
+              <div class="afield"><label>Contact Phone</label><input data-setting="contact_phone"></div>
+              <div class="afield" style="grid-column: 1 / -1;"><label>Studio Address</label><input data-setting="contact_address"></div>
+              <div class="afield" style="grid-column: 1 / -1;"><label>Footer Address (short)</label><input data-setting="footer_address"></div>
+            </div>
+            <button class="abtn abtn-primary" id="save-settings-btn" style="margin-top:0.5rem;">{{ ic.icon('check-circle-2', 16) }}Save Settings</button>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <div class="admin-panel-header"><h3 class="admin-h">Change Admin Password</h3></div>
+          <div class="admin-panel-body">
+            <div class="afield-row">
+              <div class="afield"><label>Current Password</label><input type="password" id="current-password"></div>
+              <div class="afield"><label>New Password</label><input type="password" id="new-password"></div>
+            </div>
+            <button class="abtn abtn-outline" id="change-password-btn">{{ ic.icon('shield', 16) }}Update Password</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Shared modal -->
+  <div class="admin-modal-backdrop" id="modal-backdrop">
+    <div class="admin-modal" id="modal-content"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="admin-toast" id="toast"><span class="dot"></span><span id="toast-msg"></span></div>
+
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

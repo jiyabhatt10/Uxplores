@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}{{ post.title }} — Blog — UXPLORES Design Studio{% endblock %}
+
+{% block content %}
+<div class="w-full">
+  <!-- Blog Post Hero with Image -->
+  <section class="blog-post-hero">
+    <div class="floating-orbs"><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
+    <div class="blog-post-image-container">
+      <img src="{{ post.image }}" alt="{{ post.title }}" class="blog-post-image">
+    </div>
+  </section>
+
+  <!-- Blog Post Content -->
+  <section class="section-sm">
+    <div class="blog-post-container">
+      <!-- Back button -->
+      <a href="{{ url_for('blog') }}" class="blog-back-link">
+        ← Back to Blog
+      </a>
+
+      <!-- Article header -->
+      <article class="blog-post-article">
+        <div class="blog-post-meta">
+          <span class="blog-post-category">{{ post.category | capitalize }}</span>
+          <span class="blog-post-date">{{ post.date_str }}</span>
+          <span class="blog-post-read">{{ post.read_time }}</span>
+        </div>
+
+        <h1 class="blog-post-title">{{ post.title }}</h1>
+
+        <div class="blog-post-byline">
+          <div class="blog-post-author-info">
+            <div class="blog-post-author-avatar">{{ post.author[0] }}</div>
+            <div>
+              <div class="blog-post-author-name">{{ post.author }}</div>
+              <div class="blog-post-author-date">Published {{ post.date_str }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Article content -->
+        <div class="blog-post-content">
+          <p class="blog-post-excerpt">{{ post.excerpt }}</p>
+          
+          <p class="blog-post-note">
+            <strong>Note:</strong> This page displays the blog article excerpt. To add a longer, more detailed body to this post, edit it from the admin panel (Admin → Blog Posts).
+          </p>
+        </div>
+
+        <!-- Article footer -->
+        <div class="blog-post-footer">
+          <a href="{{ url_for('blog') }}" class="btn btn-outline">Back to All Articles</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}Services — UXPLORES{% endblock %}
+{% block meta_desc %}We design and develop web applications, mobile apps, SaaS platforms, and custom software solutions that help businesses innovate and scale.{% endblock %}
+
+{% block content %}
+<div class="w-full">
+
+  <section class="page-hero">
+    <div class="floating-orbs"><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+    <div class="container reveal">
+      <span class="eyebrow" style="text-align:center;">Our Services</span>
+      <h1><span class="text-gradient">UX-Driven </span><span class="text-gradient-primary">Digital Products</span></h1>
+      <p class="lead">We design and develop web applications, mobile apps, SaaS platforms, and custom software solutions that help businesses innovate and scale.</p>
+    </div>
+  </section>
+
+  <!-- Services grid -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="grid grid-3">
+        {% for service in services %}
+        <div class="reveal d-{{ (loop.index0 % 3) + 1 }}">
+          <div class="service-card-v2">
+            <div class="service-icon-v2" style="background: linear-gradient(135deg, {{ service.color_from }}, {{ service.color_to }});">
+              {{ ic.icon(service.icon, 28) }}
+            </div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+            <a href="{{ url_for('contact') }}" class="learn-more">
+              Learn More
+              {{ ic.icon('arrow-right', 16) }}
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process timeline -->
+  <section class="section bg-card border-y">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 42rem; margin: 0 auto 6rem;">
+        <span class="eyebrow">How We Work</span>
+        <h3 style="font-size: 2.5rem; font-weight: 700;">A proven approach that delivers results</h3>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-steps">
+          {% for step in [
+            ("Discovery and Analysis", "Understanding your business objectives, users, and technical requirements.", "We dig into your goals, your users, and the technical landscape before a single pixel or line of code is created."),
+            ("UX Strategy & Planning", "Defining product structure, features, workflows, and development roadmap.", "Every feature is mapped against a clear roadmap so the whole team knows what's being built and why."),
+            ("Design & Validation", "Creating intuitive interfaces and validating experiences before development.", "We design and test the experience early, catching usability issues long before they become expensive to fix."),
+            ("Development & Launch", "Building, testing, deploying, and scaling high-performance digital products.", "Our engineers build, test, and ship — with performance and scalability built in from day one."),
+          ] %}
+          <div class="reveal timeline-row {{ 'reverse' if loop.index is even else '' }}">
+            <div class="timeline-card-wrap">
+              <div class="timeline-card">
+                <h3>{{ step[0] }}</h3>
+                <p class="desc">{{ step[1] }}</p>
+                <p class="detail">{{ step[2] }}</p>
+              </div>
+            </div>
+            <div class="timeline-center">
+              <div class="timeline-num">{{ '%02d' | format(loop.index) }}</div>
+            </div>
+            <div class="timeline-spacer"></div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 44rem; margin: 0 auto 5rem;">
+        <span class="eyebrow">Why Choose Us</span>
+        <h3 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">What sets us apart</h3>
+        <p class="muted" style="font-size: 1.125rem;">Combining user experience, engineering excellence, and business strategy to deliver impactful digital products.</p>
+      </div>
+
+      <div class="grid grid-4">
+        {% for v in [
+          ('target', 'UX-Driven Approach', 'Every product is designed around real user needs, business objectives, and measurable outcomes.'),
+          ('layers', 'End-to-End Delivery', 'From strategy and design to development and deployment, we handle the complete product lifecycle.'),
+          ('shield', 'Scalable Solutions', 'We build secure, maintainable, and future-ready software that grows with your business.'),
+          ('heart-handshake', 'Transparent Collaboration', 'Clear communication, structured processes, and complete visibility throughout every project.'),
+        ] %}
+        <div class="reveal d-{{ loop.index }}">
+          <div class="value-card">
+            <div class="value-icon">{{ ic.icon(v[0], 28) }}</div>
+            <h4>{{ v[1] }}</h4>
+            <p>{{ v[2] }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow" style="background: rgba(11,94,215,0.15);"></div>
+    <div class="reveal cta-panel">
+      <h2>Have a project in <span class="text-gradient-primary">mind?</span></h2>
+      <p>Let's talk about how we can bring your vision to life with the perfect blend of design and technology.</p>
+      <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-lg">
+        Book a Discovery Call
+        <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

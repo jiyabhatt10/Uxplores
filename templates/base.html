@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>{% block title %}UXPLORES Design Studio{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}We craft exceptional digital experiences that blend innovation, design excellence, and cutting-edge technology.{% endblock %}">
+  <link id="favicon-link" rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('uxplores-theme');
+      if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        var favicon = document.getElementById('favicon-link');
+        if (favicon) favicon.href = "{{ url_for('static', filename='images/favicon-light.png') }}";
+      }
+    })();
+  </script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot"><div class="cursor-dot-inner"></div></div>
+  <div class="cursor-ring"><div class="cursor-ring-inner"></div></div>
+
+  <div class="page-wrap">
+    <div class="bg-glow-tl"></div>
+    <div class="bg-glow-br"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="{{ url_for('home') }}" class="logo">
+          <img src="{{ url_for('static', filename='images/logo-full.png') }}" alt="{{ settings.site_name if settings else 'UXPLORES' }}" class="logo-img logo-img-dark">
+          <img src="{{ url_for('static', filename='images/logo-full-light.png') }}" alt="{{ settings.site_name if settings else 'UXPLORES' }}" class="logo-img logo-img-light">
+        </a>
+
+        <nav class="desktop-nav">
+          <a href="{{ url_for('home') }}" class="{{ 'active' if request.path == '/' }}">Home</a>
+          <a href="{{ url_for('services_page') }}" class="{{ 'active' if request.path == '/services' }}">Services</a>
+          <a href="{{ url_for('portfolio') }}" class="{{ 'active' if request.path in ['/portfolio', '/work'] }}">Portfolio</a>
+          <a href="{{ url_for('about') }}" class="{{ 'active' if request.path == '/about' }}">About</a>
+          <a href="{{ url_for('blog') }}" class="{{ 'active' if request.path == '/blog' }}">Blog</a>
+          <a href="{{ url_for('contact') }}" class="{{ 'active' if request.path == '/contact' }}">Contact</a>
+        </nav>
+
+        <div class="header-cta">
+          <button class="theme-toggle" id="theme-toggle-desktop" aria-label="Toggle light/dark theme" type="button">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+          <a href="{{ url_for('contact') }}" class="btn btn-invert btn-md">
+            Start a Project
+            <svg class="icon-move-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <button class="theme-toggle theme-toggle-mobile" id="theme-toggle-mobile-icon" aria-label="Toggle light/dark theme" type="button">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+
+        <button class="mobile-toggle" aria-label="Toggle menu">
+          <svg class="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+          <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu">
+      <nav class="mobile-nav">
+        <a href="{{ url_for('home') }}" class="{{ 'active' if request.path == '/' }}">Home</a>
+        <a href="{{ url_for('services_page') }}" class="{{ 'active' if request.path == '/services' }}">Services</a>
+        <a href="{{ url_for('portfolio') }}" class="{{ 'active' if request.path in ['/portfolio', '/work'] }}">Portfolio</a>
+        <a href="{{ url_for('about') }}" class="{{ 'active' if request.path == '/about' }}">About</a>
+        <a href="{{ url_for('blog') }}" class="{{ 'active' if request.path == '/blog' }}">Blog</a>
+        <a href="{{ url_for('contact') }}" class="{{ 'active' if request.path == '/contact' }}">Contact</a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <a href="{{ url_for('contact') }}" class="btn">Start a Project</a>
+        <div class="mobile-social">
+          <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="X"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.3.2 2.3.2v2.53h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.85l-.46 2.91h-2.39v7.04A10 10 0 0 0 22 12z"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="{{ url_for('home') }}" class="footer-logo">
+              <img src="{{ url_for('static', filename='images/logo-full.png') }}" alt="{{ settings.site_name if settings else 'UXPLORES' }}" class="footer-logo-img footer-logo-img-dark">
+              <img src="{{ url_for('static', filename='images/logo-full-light.png') }}" alt="{{ settings.site_name if settings else 'UXPLORES' }}" class="footer-logo-img footer-logo-img-light">
+            </a>
+            <p>We help startups, enterprises, and growing businesses turn ideas into scalable digital products through UX design, web development, and custom software.</p>
+            <div class="footer-social">
+              <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+              <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+              <a href="#" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+              <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.57 1.53-3.99 3.87-3.99 1.12 0 2.3.2 2.3.2v2.53h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.85l-.46 2.91h-2.39v7.04A10 10 0 0 0 22 12z"/></svg></a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="{{ url_for('home') }}">Home</a></li>
+              <li><a href="{{ url_for('services_page') }}">Services</a></li>
+              <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+              <li><a href="{{ url_for('about') }}">About</a></li>
+              <li><a href="{{ url_for('blog') }}">Blog</a></li>
+              <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="{{ url_for('services_page') }}">UI/UX Design</a></li>
+              <li><a href="{{ url_for('services_page') }}">Web Development</a></li>
+              <li><a href="{{ url_for('services_page') }}">Mobile App Development</a></li>
+              <li><a href="{{ url_for('services_page') }}">SaaS Development</a></li>
+              <li><a href="{{ url_for('services_page') }}">Custom Software Development</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <ul>
+              <li>{{ settings.footer_address if settings else 'Ahmedabad, INDIA' }}</li>
+              <li><a href="mailto:{{ settings.contact_email if settings else 'business@uxplores.com' }}">{{ settings.contact_email if settings else 'business@uxplores.com' }}</a></li>
+              <li><a href="tel:{{ settings.contact_phone if settings else '' }}">{{ settings.contact_phone if settings else '+91 81411 58740' }}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 {{ settings.site_name if settings else 'UXPLORES' }} Design Studio. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

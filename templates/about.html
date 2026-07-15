@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% import "_icons.html" as ic %}
+
+{% block title %}About — UXPLORES{% endblock %}
+{% block meta_desc %}We help startups, enterprises, and growing businesses transform ideas into scalable digital products through UX design, web development, mobile applications, and custom software solutions.{% endblock %}
+
+{% block content %}
+<div class="w-full">
+
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="floating-orbs"><div class="orb orb-1"></div><div class="orb orb-4"></div></div>
+    <div class="container reveal">
+      <span class="eyebrow" style="text-align:center;">About UXPLORES</span>
+      <h1><span class="text-gradient">Building UX-Driven </span><span class="text-gradient-primary">Digital Products That Scale</span></h1>
+      <p class="lead">We help startups, enterprises, and growing businesses transform ideas into scalable digital products through UX design, web development, mobile applications, and custom software solutions.</p>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="about-hero-grid">
+        <div class="reveal-left">
+          <span class="eyebrow">Our Story</span>
+          <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem;">Founded in 2022, Built for Innovation</h2>
+          <p class="muted" style="font-size: 1.05rem; margin-bottom: 1.25rem;">UXPLORES was founded with a vision to bridge the gap between exceptional user experience and scalable software development. What began as a design-focused initiative has evolved into a full-service software development company delivering digital solutions for startups, enterprises, and growing businesses.</p>
+          <p class="muted" style="font-size: 1.05rem; margin-bottom: 1.25rem;">Today, we specialize in UI/UX design, web development, mobile applications, SaaS platforms, and custom software solutions. By combining design thinking with engineering excellence, we help organizations transform ideas into impactful digital products.</p>
+          <p class="muted" style="font-size: 1.05rem; margin-bottom: 2rem;">Our mission remains simple: build products that users love and businesses can scale with confidence.</p>
+
+          <div class="story-stats-grid">
+            <div class="story-stat-card">
+              {{ ic.icon('calendar') }}
+              <div class="val">{{ settings.stat_projects }}</div>
+              <div class="lbl">Founded</div>
+            </div>
+            <div class="story-stat-card">
+              {{ ic.icon('rocket') }}
+              <div class="val">{{ settings.stat_clients }}</div>
+              <div class="lbl">Projects Delivered</div>
+            </div>
+            <div class="story-stat-card">
+              {{ ic.icon('compass') }}
+              <div class="val">{{ settings.stat_awards }}</div>
+              <div class="lbl">Industries Served</div>
+            </div>
+            <div class="story-stat-card">
+              {{ ic.icon('shield') }}
+              <div class="val">{{ settings.stat_satisfaction }}</div>
+              <div class="lbl">Custom Build Solutions</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal-right about-hero-media">
+          <div class="frame">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" alt="Our studio">
+            <div class="fade"></div>
+          </div>
+          <div class="floating-badge">
+            <div class="num text-gradient-primary">2022</div>
+            <div class="lbl">Founded</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission / Vision -->
+  <section class="section-sm bg-card border-y">
+    <div class="container">
+      <div class="mission-vision-grid">
+        <div class="reveal mv-card" style="background: linear-gradient(135deg, rgba(31,162,255,0.06), transparent);">
+          <div class="glow" style="background:#1FA2FF;"></div>
+          <span class="label" style="color: var(--color-primary);">Our Mission</span>
+          <h2>To become a globally trusted technology partner</h2>
+          <p>To become a globally trusted technology partner known for building innovative digital products that empower businesses, solve complex challenges, and shape the future of digital experiences.</p>
+        </div>
+        <div class="reveal d-2 mv-card" style="background: linear-gradient(135deg, rgba(11,94,215,0.08), transparent);">
+          <div class="glow" style="background:#0B5ED7;"></div>
+          <span class="label" style="color: var(--color-accent);">Our Vision</span>
+          <h2>Scalable products, built around real users</h2>
+          <p>To help businesses transform ideas into scalable digital products through user-centered design, modern technology, and reliable software development. We are committed to building solutions that create measurable value for our clients and meaningful experiences for their users.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 42rem; margin: 0 auto 5rem;">
+        <span class="eyebrow">Our Values</span>
+        <h3 style="font-size: 2.5rem; font-weight: 700;">The principles that guide everything we do</h3>
+      </div>
+
+      <div class="grid grid-4">
+        {% for v in [
+          ('target', 'User-Centricity', 'Every product we build starts with understanding users, their challenges, and their goals.'),
+          ('code', 'Engineering Excellence', 'We develop scalable, secure, and high-performance software built for long-term growth.'),
+          ('shield', 'Transparency', 'Clear communication, honest timelines, and complete project visibility from start to launch.'),
+          ('heart-handshake', 'Partnership', 'We work as an extension of your team, aligning technology solutions with business objectives.'),
+        ] %}
+        <div class="reveal d-{{ loop.index }}">
+          <div class="value-card">
+            <div class="value-icon">{{ ic.icon(v[0], 28) }}</div>
+            <h4>{{ v[1] }}</h4>
+            <p>{{ v[2] }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section bg-card border-y">
+    <div class="container">
+      <div class="reveal text-center" style="max-width: 42rem; margin: 0 auto 5rem;">
+        <span class="eyebrow">Meet The People</span>
+        <h3 style="font-size: 2.5rem; font-weight: 700;">The people behind UXPLORES</h3>
+      </div>
+
+      <div class="grid grid-2" style="max-width: 42rem; margin: 0 auto;">
+        {% for m in team %}
+        <div class="reveal d-{{ loop.index }}">
+          <div class="team-card">
+            <div class="team-img-wrap">
+              <img src="{{ m.image }}" alt="{{ m.name }}">
+              <div class="team-fade"></div>
+              <div class="team-bio"><p>{{ m.description }}</p></div>
+            </div>
+            <h4>{{ m.name }}</h4>
+            <div class="role">{{ m.role }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow" style="background: rgba(31,162,255,0.15);"></div>
+    <div class="reveal cta-panel">
+      <h2>Ready to Build Your <span class="text-gradient-primary">Next Digital Product?</span></h2>
+      <p>From custom software and SaaS platforms to mobile apps and web applications, we're here to turn your vision into reality.</p>
+      <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-lg">
+        Start Your Project Now
+        <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
