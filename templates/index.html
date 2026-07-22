@@ -165,16 +165,52 @@
     </div>
   </section>
 
-  <!-- Quote -->
+  <!-- Reviews / Quote -->
   <section class="quote-section">
     <div class="quote-glow"></div>
     <div class="quote-inner reveal">
+      {% if reviews and reviews|length > 0 %}
+      <div style="display:flex; flex-direction:column; gap:2rem;">
+        <div style="text-align:center; max-width: 56rem; margin: 0 auto 1.5rem;">
+          <span class="eyebrow">Client Testimonials</span>
+          <h2 style="margin-top: 0.5rem;">What our clients say about working with UXPLORES.</h2>
+        </div>
+        <div class="grid grid-3" style="gap:1.5rem;">
+          {% for review in reviews %}
+          <div class="review-card card-glass">
+            <p class="review-text">“{{ review.text }}”</p>
+            <div class="review-owner">
+              {% if review.image %}
+              <img src="{{ review.image }}" alt="{{ review.name }}" class="review-avatar" onerror="this.style.display='none'">
+              {% else %}
+              <div class="review-avatar review-avatar-placeholder">{{ review.name[0] if review.name }} </div>
+              {% endif %}
+              <div>
+                <div class="review-name">{{ review.name }}</div>
+                <div class="review-designation">{{ review.designation }}{% if review.company %}, {{ review.company }}{% endif %}</div>
+                {% if review.rating %}
+                <div class="review-rating">{{ review.rating }}/5</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div style="text-align:center; margin-top:1rem;">
+          <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-lg">
+            Start a Project
+            <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
+          </a>
+        </div>
+      </div>
+      {% else %}
       <span class="eyebrow" style="text-align:center;">We Build Products That Drive Business Growth</span>
       <h2 style="margin-top: 0.5rem;">From custom software and SaaS platforms to mobile apps and enterprise solutions, we combine strategy, UX, and engineering to create digital products that deliver measurable results.</h2>
       <a href="{{ url_for('contact') }}" class="btn btn-gradient btn-lg" style="margin: 0 auto;">
         Start a Project
         <span class="icon-move-right" style="display:flex;">{{ ic.icon('arrow-right', 20) }}</span>
       </a>
+      {% endif %}
     </div>
   </section>
 

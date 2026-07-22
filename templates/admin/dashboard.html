@@ -24,6 +24,7 @@
         <button class="admin-nav-item" data-tab="services">{{ ic.icon('layout-template') }}<span>Services</span><span class="badge">{{ counts.services }}</span></button>
         <button class="admin-nav-item" data-tab="blog">{{ ic.icon('file-text') }}<span>Blog Posts</span><span class="badge">{{ counts.blog }}</span></button>
         <button class="admin-nav-item" data-tab="team">{{ ic.icon('users') }}<span>Team</span><span class="badge">{{ counts.team }}</span></button>
+        <button class="admin-nav-item" data-tab="reviews">{{ ic.icon('message-square') }}<span>Reviews</span><span class="badge">{{ counts.reviews }}</span></button>
         <button class="admin-nav-item" data-tab="contacts">{{ ic.icon('inbox') }}<span>Messages</span>{% if counts.unread %}<span class="badge">{{ counts.unread }}</span>{% endif %}</button>
         <button class="admin-nav-item" data-tab="newsletter">{{ ic.icon('mail') }}<span>Newsletter</span></button>
         <button class="admin-nav-item" data-tab="settings">{{ ic.icon('settings') }}<span>Settings</span></button>
@@ -88,6 +89,11 @@
       <!-- Team -->
       <div class="tab-panel" data-panel="team">
         <div class="admin-panel"><div class="admin-panel-body" id="team-list"><div class="empty-state">Loading…</div></div></div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="tab-panel" data-panel="reviews">
+        <div class="admin-panel"><div class="admin-panel-body" id="reviews-list"><div class="empty-state">Loading…</div></div></div>
       </div>
 
       <!-- Contacts -->

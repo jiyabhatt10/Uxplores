@@ -389,6 +389,29 @@ class TeamMember(db.Model):
         }
 
 
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    designation = db.Column(db.String(120), nullable=False, default="")
+    company = db.Column(db.String(120), nullable=False, default="")
+    rating = db.Column(db.Integer, nullable=False, default=0)
+    text = db.Column(db.Text, nullable=False, default="")
+    image = db.Column(db.String(500), nullable=False, default="")
+    order_index = db.Column(db.Integer, nullable=False, default=0)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "designation": self.designation,
+            "company": self.company,
+            "rating": self.rating,
+            "text": self.text,
+            "image": self.image,
+            "order_index": self.order_index,
+        }
+
+
 class ContactSubmission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
@@ -530,8 +553,9 @@ def admin_required(view):
 def home():
     services = Service.query.order_by(Service.order_index).limit(6).all()
     featured_projects = Project.query.order_by(Project.order_index).limit(3).all()
+    reviews = Review.query.order_by(Review.order_index).all()
     return render_template("index.html", services=services, projects=featured_projects,
-                            settings=all_public_settings())
+                            reviews=reviews, settings=all_public_settings())
 
 
 @app.route("/about")
@@ -700,6 +724,7 @@ def admin_dashboard():
         "services": Service.query.count(),
         "blog": BlogPost.query.count(),
         "team": TeamMember.query.count(),
+        "reviews": Review.query.count(),
         "contacts": ContactSubmission.query.count(),
         "unread": ContactSubmission.query.filter_by(is_read=False).count(),
         "newsletter": NewsletterSubscriber.query.count(),
@@ -750,6 +775,7 @@ SERVICE_FIELDS = ["icon", "title", "description", "color_from", "color_to", "ord
 BLOG_FIELDS = ["title", "excerpt", "category", "author", "date_str", "read_time", "image",
                "featured", "order_index"]
 TEAM_FIELDS = ["name", "role", "image", "description", "order_index"]
+REVIEW_FIELDS = ["name", "designation", "company", "rating", "text", "image", "order_index"]
 
 
 def _tags_to_str(payload):
@@ -836,6 +862,22 @@ def api_team_detail(item_id):
     if request.method == "DELETE":
         return crud_delete(TeamMember, item_id)
     return crud_update(TeamMember, item_id, TEAM_FIELDS)
+
+
+@app.route("/admin/api/reviews", methods=["GET", "POST"])
+@admin_required
+def api_reviews():
+    if request.method == "GET":
+        return crud_list(Review)
+    return crud_create(Review, REVIEW_FIELDS)
+
+
+@app.route("/admin/api/reviews/<int:item_id>", methods=["PUT", "DELETE"])
+@admin_required
+def api_review_detail(item_id):
+    if request.method == "DELETE":
+        return crud_delete(Review, item_id)
+    return crud_update(Review, item_id, REVIEW_FIELDS)
 
 
 @app.route("/admin/api/contacts", methods=["GET"])
