@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: uxplore-flask
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: RESEND_FROM_EMAIL
+        value: noreply@uxplores.com
+      - key: SITE_URL
+        fromService:
+          name: uxplore-flask
+          property: url
+    domains:
+      - domain: yourdomain.com  # Replace with your domain
+
+databases:
+  - name: postgres
+    type: postgres
+    plan: starter
+    version: "15"

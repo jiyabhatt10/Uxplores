@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://uxplore:uxplore123@db:5432/uxplore
+      SECRET_KEY: dev-secret-key-change-in-production
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      RESEND_FROM_EMAIL: noreply@uxplores.com
+      SITE_URL: http://localhost:8000
+      ADMIN_PASSWORD: uxplore123
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    command: gunicorn app:app --bind 0.0.0.0:8000 --reload
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: uxplore
+      POSTGRES_PASSWORD: uxplore123
+      POSTGRES_DB: uxplore
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

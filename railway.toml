@@ -1,0 +1,26 @@
+[build]
+builder = "nixpacks"
+
+[env]
+PYTHON_VERSION = "3.11.9"
+
+[[services]]
+name = "web"
+runtime = "python"
+startCommand = "gunicorn app:app"
+buildCommand = "pip install -r requirements.txt"
+port = 8000
+
+[services.env]
+SECRET_KEY = { generateValue = true }
+RESEND_FROM_EMAIL = "noreply@uxplores.com"
+SITE_URL = { env = "RAILWAY_PUBLIC_DOMAIN" }
+
+[services.volumes]
+src = "database"
+dest = "/app/instance"
+
+[services.postgres]
+name = "postgres"
+image = "postgres:15"
+version = "15"
