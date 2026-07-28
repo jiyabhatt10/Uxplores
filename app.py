@@ -201,7 +201,7 @@ def send_via_ses(to_email, subject, html_content, config):
 
 def send_email(to_email, subject, html_content):
     config = get_newsletter_config()
-    provider = (config.get('provider') or 'Resend').strip().lower()
+    provider = (config.get('provider') or '').strip().lower()
     if provider == 'smtp':
         return send_via_smtp(to_email, subject, html_content, {
             'smtp_host': config['smtp_host'],
@@ -223,11 +223,13 @@ def send_email(to_email, subject, html_content):
             'ses_region': config['ses_region'],
             'from_email': config['from_email'],
         })
-    # default to Resend
-    return send_via_resend(to_email, subject, html_content, {
-        'resend_api_key': get_setting('newsletter_resend_api_key'),
-        'from_email': config['from_email'],
-    })
+    if provider == 'resend':
+        return send_via_resend(to_email, subject, html_content, {
+            'resend_api_key': get_setting('newsletter_resend_api_key'),
+            'from_email': config['from_email'],
+        })
+    print('Email sending is disabled because no newsletter provider is configured.')
+    return False
 
 
 def send_verification_email(subscriber_email, token):
@@ -478,7 +480,7 @@ DEFAULT_SETTINGS = {
     "contact_address": "Ahmedabad, INDIA",
     "footer_address": "Ahmedabad, INDIA",
     "site_name": "UXPLORES",
-    "newsletter_provider": "Resend",
+    "newsletter_provider": "",
     "newsletter_smtp_host": "",
     "newsletter_smtp_port": "587",
     "newsletter_smtp_username": "",
