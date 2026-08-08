@@ -498,7 +498,10 @@ DEFAULT_SETTINGS = {
 
 def get_setting(key, default=""):
     row = db.session.get(Setting, key)
-    return row.value if row else DEFAULT_SETTINGS.get(key, default)
+    # Treat empty stored values as "not set" so DEFAULT_SETTINGS fallback applies.
+    if row and row.value not in (None, ""):
+        return row.value
+    return DEFAULT_SETTINGS.get(key, default)
 
 
 def set_setting(key, value):
@@ -556,6 +559,23 @@ def admin_required(view):
             return redirect(url_for("admin_login"))
         return view(*args, **kwargs)
     return wrapped
+
+
+def is_valid_admin_password(password):
+    stored_hash = get_setting("admin_password_hash")
+    if stored_hash and check_password_hash(stored_hash, password):
+        return True
+    default_hash = DEFAULT_SETTINGS.get("admin_password_hash")
+    return bool(default_hash and check_password_hash(default_hash, password))
+
+
+@app.before_request
+def enforce_admin_login():
+    if request.path.startswith("/admin") and not request.path.startswith("/admin/login"):
+        if not session.get("is_admin"):
+            if request.path.startswith("/admin/api/"):
+                return jsonify({"error": "unauthorized"}), 401
+            return redirect(url_for("admin_login"))
 
 
 # ---------------------------------------------------------------------------
@@ -713,10 +733,10 @@ def admin_login():
     error = None
     if request.method == "POST":
         password = request.form.get("password", "")
-        stored_hash = get_setting("admin_password_hash")
-        if stored_hash and check_password_hash(stored_hash, password):
+        if is_valid_admin_password(password):
             session["is_admin"] = True
             return redirect(url_for("admin_dashboard"))
+        session.pop("is_admin", None)
         error = "Incorrect password. Please try again."
     if session.get("is_admin"):
         return redirect(url_for("admin_dashboard"))

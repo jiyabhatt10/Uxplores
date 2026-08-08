@@ -98,6 +98,8 @@
 
 .team-bio {
   color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .team-search {
@@ -245,8 +247,8 @@ body.admin-body {
   transition: all 0.15s ease; width: 100%; text-align: left; background: none; border: none;
 }
 .admin-nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
-.admin-nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
-.admin-nav-item.active { background: linear-gradient(135deg, rgba(31,162,255,0.15), rgba(11,94,215,0.12)); color: #fff; border: 1px solid rgba(31,162,255,0.25); }
+.admin-nav-item:hover { background: rgba(0,0,0,0.03); color: var(--text); }
+.admin-nav-item.active { background: linear-gradient(135deg, rgba(31,162,255,0.09), rgba(11,94,215,0.06)); color: var(--text); border: 1px solid rgba(31,162,255,0.12); }
 .admin-nav-item .badge {
   margin-left: auto; background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 700;
   padding: 0.1rem 0.45rem; border-radius: 999px;
@@ -268,7 +270,7 @@ body.admin-body {
 
 .admin-mobile-toggle {
   display: none; position: fixed; top: 1rem; left: 1rem; z-index: 40; width: 44px; height: 44px;
-  border-radius: 12px; background: var(--panel); border: 1px solid var(--border); color: #fff;
+  border-radius: 12px; background: var(--panel); border: 1px solid var(--border); color: var(--text);
   align-items: center; justify-content: center; cursor: pointer;
 }
 .admin-mobile-toggle svg { width: 20px; height: 20px; }
@@ -296,11 +298,11 @@ body.admin-body {
 }
 .abtn svg { width: 16px; height: 16px; }
 .abtn-primary { background: linear-gradient(135deg, #1FA2FF, #0B5ED7); color: #fff; }
-.abtn-primary:hover { filter: brightness(1.1); }
-.abtn-outline { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: #fff; }
-.abtn-outline:hover { background: rgba(255,255,255,0.1); }
-.abtn-danger { background: rgba(239,68,68,0.12); color: var(--danger); border: 1px solid rgba(239,68,68,0.25); }
-.abtn-danger:hover { background: rgba(239,68,68,0.2); }
+.abtn-primary:hover { filter: brightness(1.05); }
+.abtn-outline { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08); color: var(--text); }
+.abtn-outline:hover { background: rgba(0,0,0,0.06); }
+.abtn-danger { background: rgba(239,68,68,0.08); color: #7a1f1f; border: 1px solid rgba(239,68,68,0.18); }
+.abtn-danger:hover { background: rgba(239,68,68,0.12); }
 .abtn-sm { padding: 0.45rem 0.85rem; font-size: 0.8rem; }
 .abtn-icon { padding: 0.5rem; }
 
@@ -320,10 +322,10 @@ body.admin-body {
   background: rgba(255,255,255,0.02); border: 1px solid var(--border); margin-bottom: 0.75rem;
 }
 .item-row:last-child { margin-bottom: 0; }
-.item-thumb { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: #1a1d24; }
+.item-thumb { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: #e5e7eb; }
 .item-icon-thumb {
   width: 56px; height: 56px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  color: #fff;
+  color: var(--text); background: #f3f4f6;
 }
 .item-body { flex: 1; min-width: 0; }
 .item-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -342,7 +344,15 @@ body.admin-body {
 .contact-row-email { font-size: 0.8rem; color: var(--primary); }
 .contact-row-date { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .contact-row-meta { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; }
-.contact-row-msg { font-size: 0.875rem; color: #d1d5db; line-height: 1.6; background: rgba(0,0,0,0.2); padding: 0.75rem 1rem; border-radius: 10px; }
+.contact-row-msg {
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.6;
+  background: rgba(0,0,0,0.03);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
 
 /* ---------- Modal / form ---------- */
 .admin-modal-backdrop {
@@ -362,8 +372,8 @@ body.admin-body {
 .afield { margin-bottom: 1.1rem; }
 .afield label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; white-space: normal; overflow: visible; }
 .afield input, .afield select, .afield textarea {
-  width: 100%; padding: 0.7rem 0.9rem; border-radius: 10px; background: rgba(0,0,0,0.35);
-  border: 1px solid var(--border); color: #fff; font-size: 0.9rem; font-family: 'Inter', sans-serif; box-sizing: border-box;
+  width: 100%; padding: 0.7rem 0.9rem; border-radius: 10px; background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08); color: var(--text); font-size: 0.9rem; font-family: 'Inter', sans-serif; box-sizing: border-box;
 }
 .afield input:focus, .afield select:focus, .afield textarea:focus { outline: none; border-color: var(--primary); }
 .afield textarea { resize: vertical; min-height: 80px; }
@@ -425,11 +435,11 @@ body.admin-body {
 .blog-side details summary { cursor: pointer; color: var(--muted); }
 
 /* ---------- Project Form - Improved Client-Friendly UI ---------- */
-.project-form-grid { display: grid; grid-template-columns: 1fr 340px; gap: 2rem; }
-@media (max-width: 900px) { .project-form-grid { grid-template-columns: 1fr; } }
+.project-form-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 360px); gap: 1.5rem; }
+@media (max-width: 1100px) { .project-form-grid { grid-template-columns: 1fr; } }
 
-.project-form-main { padding-right: 0.5rem; }
-.project-form-preview { padding-left: 0.5rem; }
+.project-form-main { padding-right: 0.5rem; min-width: 0; }
+.project-form-preview { padding-left: 0.5rem; min-width: 280px; }
 
 .form-section { margin-bottom: 2.25rem; }
 .form-section:not(:first-child) { border-top: 1px solid var(--border); padding-top: 2rem; }
@@ -459,7 +469,7 @@ body.admin-body {
 .metric-card input::placeholder { color: var(--muted); }
 
 /* Preview Section */
-.preview-section { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; position: sticky; top: 1rem; }
+.preview-section { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; position: sticky; top: 1rem; align-self: start; }
 .preview-section .form-section-title { margin-bottom: 1rem; }
 
 .project-preview-card { display: flex; flex-direction: column; overflow: hidden; }
@@ -485,7 +495,11 @@ body.admin-body {
 .preview-project-image { background: rgba(0,0,0,0.08); }
 
 /* Make modal wider for richer layout */
-.admin-modal { max-width: 980px; }
+.admin-modal {
+  width: min(980px, calc(100vw - 2rem));
+  max-width: 980px;
+  overflow-x: auto;
+}
 
 /* ---------- Services form improvements ---------- */
 .service-form-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; }
