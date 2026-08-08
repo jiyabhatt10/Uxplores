@@ -4,36 +4,7 @@
 
 const state = { cache: {}, currentTab: "overview" };
 
-// Admin theme management (Light/Dark mode)
-function initAdminTheme() {
-  const htmlEl = document.getElementById('admin-html');
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  const themeLabel = document.getElementById('theme-toggle-label');
-  
-  // Load saved theme or default to dark
-  const savedTheme = localStorage.getItem('admin-theme') || 'dark';
-  applyAdminTheme(savedTheme);
-
-  function applyAdminTheme(theme) {
-    if (theme === 'light') {
-      htmlEl.setAttribute('data-theme', 'light');
-      localStorage.setItem('admin-theme', 'light');
-      themeLabel.textContent = 'Dark Mode';
-    } else {
-      htmlEl.removeAttribute('data-theme');
-      localStorage.setItem('admin-theme', 'dark');
-      themeLabel.textContent = 'Light Mode';
-    }
-  }
-
-  window.toggleAdminTheme = function() {
-    const current = htmlEl.getAttribute('data-theme');
-    applyAdminTheme(current === 'light' ? 'dark' : 'light');
-  };
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  initAdminTheme();
   initSidebar();
   initTabs();
   initModal();

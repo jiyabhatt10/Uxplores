@@ -1,6 +1,6 @@
 {% import "_icons.html" as ic %}
 <!DOCTYPE html>
-<html lang="en" id="admin-html">
+<html lang="en" id="admin-html" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +31,6 @@
       </nav>
 
       <div class="admin-sidebar-footer">
-        <button class="admin-logout-btn" id="theme-toggle-btn" onclick="toggleAdminTheme()">{{ ic.icon('sun') }}<span id="theme-toggle-label">Light Mode</span></button>
         <a href="{{ url_for('home') }}" target="_blank" rel="noopener" class="admin-logout-btn">{{ ic.icon('external-link') }}<span>View Site</span></a>
         <a href="{{ url_for('admin_logout') }}" class="admin-logout-btn">{{ ic.icon('log-out') }}<span>Log Out</span></a>
       </div>

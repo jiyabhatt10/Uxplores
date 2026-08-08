@@ -2,10 +2,10 @@
 // UXPLORES — main.js
 // Custom cursor, header scroll state, mobile menu, scroll-reveal animations,
 // animated counters, portfolio/blog filters + modal, FAQ accordion, contact form.
+// Light theme only - no theme toggle
 // =============================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  initThemeToggle();
   initCustomCursor();
   initHeaderScroll();
   initMobileMenu();
@@ -19,45 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initNewsletterForm();
 });
 
-// -----------------------------------------------------------------------------
-// Theme toggle — light (white/blue) vs dark (black/blue), persisted in localStorage
-// -----------------------------------------------------------------------------
-function initThemeToggle() {
-  const root = document.documentElement;
-  const buttons = [document.getElementById("theme-toggle-desktop"), document.getElementById("theme-toggle-mobile-icon")].filter(Boolean);
-  if (!buttons.length) return;
-
-  const favicon = document.getElementById("favicon-link");
-  const faviconDark = favicon ? favicon.getAttribute("href").replace("favicon-light.png", "favicon.png") : null;
-  const faviconLight = favicon ? favicon.getAttribute("href").replace("favicon.png", "favicon-light.png") : null;
-
-  const syncIcons = () => {
-    const isLight = root.getAttribute("data-theme") === "light";
-    buttons.forEach((btn) => {
-      const sun = btn.querySelector(".icon-sun");
-      const moon = btn.querySelector(".icon-moon");
-      // Light mode: show moon (click to go dark). Dark mode: show sun (click to go light).
-      sun.style.display = isLight ? "none" : "block";
-      moon.style.display = isLight ? "block" : "none";
-    });
-    if (favicon) favicon.href = isLight ? faviconLight : faviconDark;
-  };
-
-  const toggle = () => {
-    const isLight = root.getAttribute("data-theme") === "light";
-    if (isLight) {
-      root.removeAttribute("data-theme");
-      localStorage.setItem("uxplores-theme", "dark");
-    } else {
-      root.setAttribute("data-theme", "light");
-      localStorage.setItem("uxplores-theme", "light");
-    }
-    syncIcons();
-  };
-
-  buttons.forEach((btn) => btn.addEventListener("click", toggle));
-  syncIcons();
-}
 
 // -----------------------------------------------------------------------------
 // Custom cursor (dot + lagging ring), matches the original lerp-based cursor

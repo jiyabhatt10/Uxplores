@@ -1,19 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap');
 
 :root {
-  --bg: #0b0d10;
-  --panel: #111318;
-  --panel-2: #14171d;
-  --border: rgba(255,255,255,0.08);
-  --primary: #1FA2FF;
-  --accent: #0B5ED7;
-  --text: #f5f6f8;
-  --muted: #9ca3af;
-  --danger: #f87171;
-  --success: #4ade80;
-}
-
-html[data-theme="light"] {
   --bg: #f8f9fa;
   --panel: #ffffff;
   --panel-2: #f5f7fa;
@@ -26,170 +13,168 @@ html[data-theme="light"] {
   --success: #16a34a;
 }
 
-/* ========================================================================== 
-   Light Mode Overrides - Comprehensive fixes for all components
-   ========================================================================== */
+/* Light theme is the only theme - no dark mode */
 
-html[data-theme="light"] .login-field input {
+.login-field input {
   background: #ffffff;
   color: var(--text);
 }
 
-html[data-theme="light"] .login-back:hover {
+.login-back:hover {
   color: var(--text);
 }
 
-html[data-theme="light"] .admin-nav-item:hover {
+.admin-nav-item:hover {
   background: rgba(0,0,0,0.04);
   color: var(--text);
 }
 
-html[data-theme="light"] .admin-nav-item.active {
+.admin-nav-item.active {
   color: var(--text);
 }
 
-html[data-theme="light"] .admin-mobile-toggle {
+.admin-mobile-toggle {
   color: var(--text);
 }
 
-html[data-theme="light"] .abtn-outline {
+.abtn-outline {
   color: var(--text);
   background: rgba(0,0,0,0.03);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .abtn-outline:hover {
+.abtn-outline:hover {
   background: rgba(0,0,0,0.06);
 }
 
-html[data-theme="light"] .item-thumb {
+.item-thumb {
   background: #e5e7eb;
 }
 
-html[data-theme="light"] .item-icon-thumb {
+.item-icon-thumb {
   color: var(--text);
 }
 
-html[data-theme="light"] .contact-row-msg {
+.contact-row-msg {
   color: var(--text);
   background: rgba(0,0,0,0.04);
 }
 
-html[data-theme="light"] .rte {
+.rte {
   background: #ffffff;
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .rte:focus {
+.rte:focus {
   border-color: var(--primary);
 }
 
-html[data-theme="light"] .rte-toolbar button {
+.rte-toolbar button {
   background: rgba(0,0,0,0.04);
   border-color: rgba(0,0,0,0.1);
   color: var(--text);
 }
 
-html[data-theme="light"] .afield input,
-html[data-theme="light"] .afield select,
-html[data-theme="light"] .afield textarea {
+.afield input,
+.afield select,
+.afield textarea {
   background: #ffffff;
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .afield input::placeholder,
-html[data-theme="light"] .afield textarea::placeholder,
-html[data-theme="light"] .afield select {
+.afield input::placeholder,
+.afield textarea::placeholder,
+.afield select {
   color: var(--muted);
 }
 
-html[data-theme="light"] .afield input:focus,
-html[data-theme="light"] .afield select:focus,
-html[data-theme="light"] .afield textarea:focus {
+.afield input:focus,
+.afield select:focus,
+.afield textarea:focus {
   border-color: var(--primary);
 }
 
-html[data-theme="light"] .team-bio {
+.team-bio {
   color: var(--text);
 }
 
-html[data-theme="light"] .team-search {
+.team-search {
   background: #ffffff;
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .team-search::placeholder {
+.team-search::placeholder {
   color: var(--muted);
 }
 
-html[data-theme="light"] .team-sort {
+.team-sort {
   background: rgba(0,0,0,0.03);
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .theme-option {
+.theme-option {
   background: rgba(0,0,0,0.03);
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .theme-option:hover {
+.theme-option:hover {
   background: rgba(0,0,0,0.06);
 }
 
-html[data-theme="light"] .icon-search-input {
+.icon-search-input {
   background: #ffffff;
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .icon-search-input::placeholder {
+.icon-search-input::placeholder {
   color: var(--muted);
 }
 
-html[data-theme="light"] .icon-option {
+.icon-option {
   background: rgba(0,0,0,0.03);
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .icon-option:hover {
+.icon-option:hover {
   background: rgba(0,0,0,0.06);
 }
 
-html[data-theme="light"] .icon-option svg {
+.icon-option svg {
   color: var(--text);
 }
 
-html[data-theme="light"] .preview-section {
+.preview-section {
   background: rgba(0,0,0,0.03);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .service-preview {
+.service-preview {
   color: var(--text);
 }
 
-html[data-theme="light"] .image-preview {
+.image-preview {
   background: rgba(0,0,0,0.04);
   border-color: rgba(0,0,0,0.15);
 }
 
-html[data-theme="light"] .image-preview .empty {
+.image-preview .empty {
   color: var(--muted);
 }
 
-html[data-theme="light"] .admin-toast {
+.admin-toast {
   background: var(--panel);
   color: var(--text);
   border-color: rgba(0,0,0,0.1);
 }
 
-html[data-theme="light"] .icon-preview-badge {
+.icon-preview-badge {
   background: rgba(31,162,255,0.1);
 }
 
@@ -488,16 +473,16 @@ body.admin-body {
 .preview-stat strong { color: var(--text); }
 
 /* Light Theme Overrides */
-html[data-theme="light"] .project-form-main { padding-right: 0; }
-html[data-theme="light"] .project-form-preview { padding-left: 0; }
-html[data-theme="light"] .project-tag { background: rgba(31,162,255,0.1); }
-html[data-theme="light"] .metric-card { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); }
-html[data-theme="light"] .metric-card input { background: #ffffff; border-color: rgba(0,0,0,0.1); color: var(--text); }
-html[data-theme="light"] .metric-card input::placeholder { color: var(--muted); }
-html[data-theme="light"] .tag-input { background: #ffffff; border-color: rgba(0,0,0,0.1); color: var(--text); }
-html[data-theme="light"] .tag-input::placeholder { color: var(--muted); }
-html[data-theme="light"] .preview-section { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
-html[data-theme="light"] .preview-project-image { background: rgba(0,0,0,0.08); }
+.project-form-main { padding-right: 0; }
+.project-form-preview { padding-left: 0; }
+.project-tag { background: rgba(31,162,255,0.1); }
+.metric-card { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); }
+.metric-card input { background: #ffffff; border-color: rgba(0,0,0,0.1); color: var(--text); }
+.metric-card input::placeholder { color: var(--muted); }
+.tag-input { background: #ffffff; border-color: rgba(0,0,0,0.1); color: var(--text); }
+.tag-input::placeholder { color: var(--muted); }
+.preview-section { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+.preview-project-image { background: rgba(0,0,0,0.08); }
 
 /* Make modal wider for richer layout */
 .admin-modal { max-width: 980px; }
